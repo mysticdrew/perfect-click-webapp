@@ -1,0 +1,14 @@
+services:
+  webapp:
+    image: javalin-podman-template:dev
+    build:
+      context: .
+      dockerfile: Containerfile
+    env_file:
+      - .env
+    environment:
+      PORT: ${PORT:-7000}
+      APP_ENV: ${APP_ENV:-dev}
+    ports:
+      - "${PORT:-7000}:${PORT:-7000}"
+    restart: unless-stopped
