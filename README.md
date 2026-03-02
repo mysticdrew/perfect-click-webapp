@@ -1,4 +1,4 @@
-# perfect-click-webapp
+# config-server
 
 Internal config supply webapp built with Java 21 + Gradle + Javalin.
 
