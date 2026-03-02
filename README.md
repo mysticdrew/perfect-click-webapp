@@ -91,7 +91,3 @@ scripts\container-up.bat
 ```sh
 ./scripts/container-up.sh
 ```
-
-## Using This Template
-
-See [TEMPLATE.md](TEMPLATE.md) for steps to rename package/project values after creating a new repo.
