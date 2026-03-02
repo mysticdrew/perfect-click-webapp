@@ -1,6 +1,10 @@
+![Docker Image Version (tag)](https://img.shields.io/docker/v/mysticdrew/config-server/latest)
+
 # config-server
 
-Internal config supply webapp built with Java 21 + Gradle + Javalin.
+This is a config store for applications to pull full configs, as properties files or as json paylods.
+
+Configs can be stored in a file(default) on your mounted filepath or sql.
 
 ## Quickstart
 
