@@ -9,6 +9,16 @@ services:
     environment:
       PORT: ${PORT:-7000}
       APP_ENV: ${APP_ENV:-dev}
+      APP_CONFIG_STORE: ${APP_CONFIG_STORE:-file}
+      APP_CONFIG_DIR: ${APP_CONFIG_DIR:-/data/configs}
+      APP_SQLSERVER_JDBC_URL: ${APP_SQLSERVER_JDBC_URL:-}
+      APP_SQLSERVER_USERNAME: ${APP_SQLSERVER_USERNAME:-}
+      APP_SQLSERVER_PASSWORD: ${APP_SQLSERVER_PASSWORD:-}
     ports:
       - "${PORT:-7000}:${PORT:-7000}"
+    volumes:
+      - config_data:/data/configs
     restart: unless-stopped
+
+volumes:
+  config_data:

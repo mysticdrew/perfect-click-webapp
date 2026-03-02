@@ -11,9 +11,10 @@ public class App {
   public static void main(String[] args) {
     AppConfig config = AppConfig.fromEnvironment();
     logger.info(
-        "Starting webapp on port={} env={} configDir={}",
+        "Starting webapp on port={} env={} store={} configDir={}",
         config.port(),
         config.environment(),
+        config.configStoreType(),
         config.configDir());
     WebServer.create(config).start(config.port());
   }

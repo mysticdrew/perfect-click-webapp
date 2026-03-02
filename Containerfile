@@ -13,6 +13,8 @@ WORKDIR /app
 
 ENV APP_ENV=prod
 ENV PORT=7000
+ENV APP_CONFIG_STORE=file
+ENV APP_CONFIG_DIR=/data/configs
 
 COPY --from=build /workspace/build/install/config-server /app/
 

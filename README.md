@@ -76,7 +76,17 @@ The web UI is served from `/` and lets you:
 
 - `PORT` (default `7000`)
 - `APP_ENV` (default `dev`)
-- `APP_CONFIG_DIR` (default `data/configs`)
+- `APP_CONFIG_STORE` (default `file`, options: `file`, `sqlserver`)
+- `APP_CONFIG_DIR` (default `data/configs`; used when `APP_CONFIG_STORE=file`)
+- `APP_SQLSERVER_JDBC_URL` (required when `APP_CONFIG_STORE=sqlserver`)
+- `APP_SQLSERVER_USERNAME` (optional)
+- `APP_SQLSERVER_PASSWORD` (optional)
+
+### Storage modes
+
+- File mode (`APP_CONFIG_STORE=file`) writes `.properties` + type metadata files to `APP_CONFIG_DIR`.
+- SQL Server mode (`APP_CONFIG_STORE=sqlserver`) stores configs and fields in database tables.
+- In containers, keep file mode data outside the image via a mounted volume (see Podman section).
 
 ## Podman
 
@@ -91,3 +101,5 @@ scripts\container-up.bat
 ```sh
 ./scripts/container-up.sh
 ```
+
+`podman-compose.yml` now mounts a named volume to `/data/configs` and passes the storage env vars so file data survives container rebuilds/restarts.

@@ -3,8 +3,11 @@ package com.webapp.http;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webapp.api.config.ConfigApi;
 import com.webapp.config.AppConfig;
+import com.webapp.config.ConfigStoreType;
+import com.webapp.configstore.ConfigRepository;
 import com.webapp.configstore.ConfigService;
 import com.webapp.configstore.FileConfigRepository;
+import com.webapp.configstore.SqlServerConfigRepository;
 import io.javalin.Javalin;
 import io.javalin.http.HttpResponseException;
 import java.util.Map;
@@ -23,8 +26,7 @@ public final class WebServer {
   private WebServer() {}
 
   public static Javalin create(AppConfig config) {
-    ConfigService configService =
-        new ConfigService(new FileConfigRepository(config.configDir(), new ObjectMapper()));
+    ConfigService configService = new ConfigService(createRepository(config));
     ConfigApi configApi = new ConfigApi(configService);
 
     return Javalin.create(
@@ -91,6 +93,14 @@ public final class WebServer {
               "/api/v1/config/{name}/fields/{key}", configApi.deleteField());
           javalinConfig.routes.delete("/api/v1/config/{name}", configApi.deleteConfig());
         });
+  }
+
+  private static ConfigRepository createRepository(AppConfig config) {
+    if (config.configStoreType() == ConfigStoreType.SQLSERVER) {
+      return new SqlServerConfigRepository(
+          config.sqlServerJdbcUrl(), config.sqlServerUsername(), config.sqlServerPassword());
+    }
+    return new FileConfigRepository(config.configDir(), new ObjectMapper());
   }
 
   private static String requestIdFromHeader(String requestIdHeader) {
