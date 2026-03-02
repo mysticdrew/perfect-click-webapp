@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 class ConfigServiceTest {
   @Test
   void createPutGetAndDeleteFieldFlowPersistsToFiles() {
-    ConfigService service = new ConfigService(new FileConfigRepository(tempDir(), new ObjectMapper()));
+    ConfigService service =
+        new ConfigService(new FileConfigRepository(tempDir(), new ObjectMapper()));
 
     service.createConfig("app-a");
     service.putField("app-a", "feature.enabled", "BOOLEAN", "true");
@@ -34,7 +35,8 @@ class ConfigServiceTest {
 
   @Test
   void rejectsInvalidValuesByType() {
-    ConfigService service = new ConfigService(new FileConfigRepository(tempDir(), new ObjectMapper()));
+    ConfigService service =
+        new ConfigService(new FileConfigRepository(tempDir(), new ObjectMapper()));
     service.createConfig("app-a");
 
     assertThrows(
@@ -48,7 +50,8 @@ class ConfigServiceTest {
 
   @Test
   void validatesNamesAndKeys() {
-    ConfigService service = new ConfigService(new FileConfigRepository(tempDir(), new ObjectMapper()));
+    ConfigService service =
+        new ConfigService(new FileConfigRepository(tempDir(), new ObjectMapper()));
 
     assertThrows(IllegalArgumentException.class, () -> service.createConfig("bad name"));
     service.createConfig("valid-name");

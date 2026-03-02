@@ -20,7 +20,8 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class FileConfigRepository implements ConfigRepository {
-  private static final TypeReference<Map<String, String>> STRING_MAP_TYPE = new TypeReference<>() {};
+  private static final TypeReference<Map<String, String>> STRING_MAP_TYPE =
+      new TypeReference<>() {};
   private final Path configDir;
   private final ObjectMapper objectMapper;
 
@@ -198,7 +199,9 @@ public class FileConfigRepository implements ConfigRepository {
     try {
       Path target = typePath(name);
       Path temp = target.resolveSibling(target.getFileName() + ".tmp");
-      objectMapper.writerWithDefaultPrettyPrinter().writeValue(temp.toFile(), new TreeMap<>(typeMap));
+      objectMapper
+          .writerWithDefaultPrettyPrinter()
+          .writeValue(temp.toFile(), new TreeMap<>(typeMap));
       moveAtomically(temp, target);
     } catch (IOException ex) {
       throw new InternalServerErrorResponse("failed to write config type metadata");
@@ -217,7 +220,8 @@ public class FileConfigRepository implements ConfigRepository {
 
   private void moveAtomically(Path source, Path target) throws IOException {
     try {
-      Files.move(source, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+      Files.move(
+          source, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
     } catch (AtomicMoveNotSupportedException ex) {
       Files.move(source, target, StandardCopyOption.REPLACE_EXISTING);
     }

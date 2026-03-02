@@ -52,7 +52,9 @@ public class ConfigApi {
       String name = ctx.pathParam("name");
       String key = ctx.queryParam("key");
       String body =
-          key == null ? configService.renderProperties(name) : configService.getFieldValue(name, key);
+          key == null
+              ? configService.renderProperties(name)
+              : configService.getFieldValue(name, key);
       ctx.contentType("text/plain; charset=utf-8");
       ctx.result(body);
     };
