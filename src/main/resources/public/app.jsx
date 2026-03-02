@@ -156,8 +156,8 @@ function App() {
   return (
     <div className="app">
       <div className="header">
-        <h1>Internal Config Supply</h1>
-        <p>Create and maintain typed fields for Java properties configs.</p>
+        <h1>Config Store</h1>
+        <p>Modify your configs</p>
       </div>
 
       {error && <div className="error">{error}</div>}
